@@ -29,3 +29,17 @@ SELECT
     TotalDue,
     RANK() OVER (ORDER BY TotalDue DESC) AS RankBySales
 FROM SalesLT.SalesOrderHeader;
+
+SELECT TOP 5 
+    p.Name,
+    SUM(d.LineTotal) AS Revenue
+FROM SalesLT.Product p
+JOIN SalesLT.SalesOrderDetail d
+ON p.ProductID = d.ProductID
+GROUP BY p.Name
+ORDER BY Revenue DESC;
+
+SELECT 
+    OrderDate,
+    SUM(TotalDue) OVER (ORDER BY OrderDate) AS RunningTotal
+FROM SalesLT.SalesOrderHeader;
